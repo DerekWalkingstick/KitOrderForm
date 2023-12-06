@@ -1,0 +1,30 @@
+{% extends "base.jinja"%}
+
+{% block body %}
+<link rel="stylesheet" href="../static/styles/login.css" />
+
+<div class="container" id="loginContainer">
+    <div class="login-form" style="width: 600px">
+        <form method="post">
+            <!-- Card title -->
+            <div class="alert alert-primary text-center">
+                <h1>Submitting ...</h1> 
+                <p>Please wait ...</p>
+            </div>       
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Make an AJAX GET request to the Flask server
+        $.get('/send_data', function (response) {
+            // Handle the response from the Flask server
+            if (response.redirect_url) {
+                window.location.href = response.redirect_url;
+            }
+        });
+    });
+</script>
+{% endblock %}

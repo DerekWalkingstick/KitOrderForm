@@ -1,0 +1,86 @@
+{% extends "base.jinja"%}
+
+{% block body %}
+
+{% with step=3 %}
+{% include "progress_bar.jinja" %}
+{% endwith %}
+
+<form id="step-3" class="form-step" method="post">
+
+    <!-- Title -->
+    <h2 class="font-normal">Patient Info</h2>
+   
+    <!-- First Name -->
+    <div class="mt-3">
+        <label for="FirstName" class="form-label">First Name</label><span class="text-danger"> *</span>
+        <input class="form-control" id="FirstName" name="FirstName" value="{{ first_name or '' }}" required>
+        <!-- Error Message -->
+        {% if errors is defined and errors['FirstName'] is not none %}
+            <span class="text-danger">{{ errors['FirstName'] }}</span>
+        {% endif %}
+    </div>
+                
+    <!-- Last Name -->
+    <div class="mt-3">
+        <label for="LastName" class="form-label">Last Name</label><span class="text-danger"> *</span>
+        <input class="form-control" id="LastName" name="LastName" value="{{ last_name or '' }}" required>
+        <!-- Error Message -->
+        {% if errors is defined and errors['LastName'] is not none %}
+            <span class="text-danger">{{ errors['LastName'] }}</span>
+        {% endif %}
+    </div>
+                
+    <!-- Email -->
+    <div class="mt-3">
+        <label for="EmailAddress" class="form-label">Email Address</label><span class="text-danger"> *</span>
+        <input class="form-control" id="EmailAddress" name="Email" value="{{ email or '' }}" required>
+        <!-- Error Message -->
+        {% if errors is defined and errors['Email'] is not none %}
+            <span class="text-danger">{{ errors['Email'] }}</span>
+        {% endif %}
+    </div>
+                
+    <!-- Phone -->
+    <div class="mt-3">
+        <label for="PhoneNumber" class="form-label">Phone Number</label><span class="text-danger"> *</span>
+        <input class="form-control" id="PhoneNumber" name="Phone" value="{{ phone or '' }}" oninput="formatPhoneNumber(event)" required/>
+        <!-- Error Message -->
+        {% if errors is defined and errors['Phone'] is not none %}
+            <span class="text-danger">{{ errors['Phone'] }}</span>
+        {% endif %}
+    </div>
+
+    <!-- Nav Buttons -->
+    <div class="row justify-content-end">
+        <!-- Previous -->
+        <div class="col-auto mt-3 pr-2">
+            <a href="{{url_for('views.kit_types')}}"><button class="button" type="button">Previous</button></a>
+        </div>
+        <!-- Next -->
+        <div class="col-auto mt-3">
+            <button class="button" type="submit">Next</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    function formatPhoneNumber(event) {
+        const input = event.target.value.replace(/\D/g, '').substring(0, 10); // Remove non-numeric characters and limit to 10 digits
+        const areaCode = input.substring(0, 3);
+        const middle = input.substring(3, 6);
+        const end = input.substring(6, 10);
+        let formattedInput = "";
+        if (input.length > 6) {
+            formattedInput = `(${areaCode}) ${middle}-${end}`;
+        } else if (input.length > 3) {
+            formattedInput = `(${areaCode}) ${middle}`;
+        } else if (input.length > 0) {
+            formattedInput = `(${areaCode}`;
+        }
+        event.target.value = formattedInput;
+    }
+</script>
+
+{% endblock %}

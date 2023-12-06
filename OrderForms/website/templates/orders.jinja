@@ -1,0 +1,42 @@
+{% extends "base.jinja"%}
+
+{% block body %}
+
+{% with step=1 %}
+    {% include "progress_bar.jinja" %}
+{% endwith %}
+
+<form id="step-1" class="form-step" method="post">
+
+    <!-- Title -->
+    <h2 class="font-normal">Order Information</h2>
+
+    <!-- Order number -->
+    <div class="mt-3">
+        {% if role == "Telus" %}
+            <label class="form-label">Service ID and/or Purchase Order Number</label><span class="text-danger"> *</span>
+        {% else %}
+            <label class="form-label">Order Number</label><span class="text-danger"> *</span>
+        {% endif %}
+
+        <input id="OrderNumber" name="OrderNumber" class="form-control" value="{{ order_number or '' }}" required>
+
+        <!-- Error Message -->
+        {% if errors is defined and errors['OrderNumber'] is not none %}
+            <span class="text-danger">{{ errors['OrderNumber'] }}</span>
+        {% endif %}
+    </div>
+    
+    <!-- Order details -->
+    <div class="mt-3">
+        <label class="form-label">Order Details</label>
+        <input id="Details" name="Details" class="form-control" value="{{ details or '' }}">
+    </div>
+
+    <!-- Next Button -->
+    <div class="mt-3" style="text-align: end">
+        <button class="button" type="submit">Next</button>
+    </div>
+</form>
+
+{% endblock %}

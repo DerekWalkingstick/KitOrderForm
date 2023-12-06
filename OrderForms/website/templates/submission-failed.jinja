@@ -1,0 +1,32 @@
+{% extends "base.jinja"%}
+
+{% block body %}
+<link rel="stylesheet" href="../static/styles/login.css" />
+
+<div class="container" id="loginContainer">
+    <div class="login-form" style="width: 600px">
+        <form method="post">
+            <!-- Card title -->
+            <div class="alert alert-danger text-center">
+                <h1>Submission Failed!</h1>
+                <h5>
+                    {{ message or '' }}
+                </h5>
+            </div>
+            
+            <!-- Nav Buttons -->
+            <div class="row justify-content-between">
+                <!-- Previous -->
+                <div class="col-auto mt-3 pr-2">
+                    <a href="{{url_for('views.address')}}"><button class="btn btn-outline-primary mb-3" type="button">Previous</button></a>
+                </div>
+                <!-- Restart -->
+                <div class="col-auto mt-3">
+                    <button class="btn btn-outline-primary mb-3" type="submit">Restart</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.jinja"%}
+
+{% block body %}
+
+{% with step=4 %}
+    {% include "progress_bar.jinja" %}
+{% endwith %}
+
+<form id="step-4" class="form-step" method="post">
+
+    <!-- Title -->
+    <h2 class="font-normal">Patient Info</h2>
+   
+    <!-- Address Line 1 -->
+    <div class="mt-3">
+        <label for="AddressLine1" class="form-label">Address Line 1</label><span class="text-danger"> *</span>
+        <input class="form-control" id="AddressLine1" name="AddressLine1" value="{{ address_line_1 or '' }}" required>
+        <!-- Error Message -->
+        {% if errors is defined and errors['AddressLine1'] is not none %}
+            <span class="text-danger">{{ errors['AddressLine1'] }}</span>
+        {% endif %}
+    </div>
+                
+    <!-- Address Line 2 -->
+    <div class="mt-3">
+        <label for="AddressLine2" class="form-label">Address Line 2</label>
+        <input class="form-control" id="AddressLine2" name="AddressLine2" value="{{ address_line_2 or '' }}">
+        <!-- Error Message -->
+        {% if errors is defined and errors['AddressLine2'] is not none %}
+            <span class="text-danger">{{ errors['AddressLine2'] }}</span>
+        {% endif %}
+    </div>
+                
+    <!-- City -->
+    <div class="mt-3">
+        <label for="City" class="form-label">City</label><span class="text-danger"> *</span>
+        <input class="form-control" id="City" name="City" value="{{ city or '' }}" required>
+        <!-- Error Message -->
+        {% if errors is defined and errors['City'] is not none %}
+            <span class="text-danger">{{ errors['City'] }}</span>
+        {% endif %}
+    </div>
+                
+    <!-- State -->
+    <div class="mt-3">
+        <label for="State" class="form-label">State</label><span class="text-danger"> *</span>
+        <input class="form-control" id="State" name="State" value="{{ state or '' }}" required/>
+        <!-- Error Message -->
+        {% if errors is defined and errors['State'] is not none %}
+            <span class="text-danger">{{ errors['State'] }}</span>
+        {% endif %}
+    </div>
+
+    <!-- Zip -->
+    <div class="mt-3">
+        <label for="Zip" class="form-label">Zip</label><span class="text-danger"> *</span>
+        <input class="form-control" id="Zip" name="Zip" value="{{ zip or '' }}" required />
+        <!-- Error Message -->
+        {% if errors is defined and errors['Zip'] is not none %}
+        <span class="text-danger">{{ errors['Zip'] }}</span>
+        {% endif %}
+    </div>
+
+    <!-- Country Code -->
+    <div class="mt-3">
+        <label for="CountryCode" class="form-label">Country Code</label><span class="text-danger"> *</span>
+        <input class="form-control" id="CountryCode" name="CountryCode" value="{{ country_code or '' }}" required />
+        <!-- Error Message -->
+        {% if errors is defined and errors['CountryCode'] is not none %}
+        <span class="text-danger">{{ errors['CountryCode'] }}</span>
+        {% endif %}
+    </div>
+
+    <!-- Nav Buttons -->
+    <div class="row justify-content-end">
+        <!-- Previous -->
+        <div class="col-auto mt-3 pr-2">
+            <a href="{{url_for('views.patient_info')}}"><button class="button" type="button">Previous</button></a>
+        </div>
+        <!-- Submit -->
+        <div class="col-auto mt-3">
+            <button class="button" type="submit" onclick="this.innerHTML = 'Submitting...';">Submit Request</button>
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}

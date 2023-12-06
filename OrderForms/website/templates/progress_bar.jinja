@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="../static/styles/progress_bar.css" />
+
+<div id="multi-step-form-container">
+    <!-- Form Steps -->
+    <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0" style="margin-top: 20px">
+
+        <!-- Step 1 -->
+        <li class="{{ 'form-stepper-active' if step == 1 else '' }} 
+                    {{ 'form-stepper-completed' if step > 1 else '' }}
+                    text-center form-stepper-list">
+            <div class="mx-2">
+
+                <!-- Number -->
+                <span class="form-stepper-circle">
+                    <span>1</span>
+                </span>
+
+                <!-- Step -->
+                <div class="label">Details</div>
+
+            </div>
+        </li>
+
+        <!-- Step 2 -->
+        <li class="{{ 'form-stepper-unfinished' if step < 2 else '' }}
+                    {{ 'form-stepper-active' if step == 2 else '' }} 
+                    {{ 'form-stepper-completed' if step > 2 else '' }}
+                    text-center form-stepper-list">
+            <div class="mx-2">
+
+                <!-- Number -->
+                <span class="form-stepper-circle">
+                    <span>2</span>
+                </span>
+
+                <!-- Step -->
+                <div class="label">Kit Types</div>
+
+            </div>
+        </li>
+
+        <!-- Step 3 -->
+        <li class="{{ 'form-stepper-unfinished' if step < 3 else '' }}
+                            {{ 'form-stepper-active' if step == 3 else '' }} 
+                            {{ 'form-stepper-completed' if step > 3 else '' }}
+                            text-center form-stepper-list">
+            <div class="mx-2">
+
+                <!-- Number -->
+                <span class="form-stepper-circle">
+                    <span>3</span>
+                </span>
+
+                <!-- Step -->
+                <div class="label">Patient Info</div>
+
+            </div>
+        </li>
+
+        <!-- Step 4 -->
+        <li class="{{ 'form-stepper-unfinished' if step < 4 else '' }}
+                    {{ 'form-stepper-active' if step == 4 else '' }} 
+                    text-center form-stepper-list">
+            <div class="mx-2">
+
+                <!-- Number -->
+                <span class="form-stepper-circle">
+                    <span>4</span>
+                </span>
+
+                <!-- Step -->
+                <div class="label">Address</div>
+
+            </div>
+        </li>
+
+    </ul>
+</div>

@@ -1,0 +1,20 @@
+{% extends "base.jinja"%}
+
+{% block body %}
+<link rel="stylesheet" href="../static/styles/login.css" />
+
+<div class="container" id="loginContainer">
+    <div class="login-form" style="width: 600px">
+        <form method="post">
+            <!-- Card title -->
+            <div class="alert alert-success text-center">Submission Successful!</div>
+
+            <!-- Submit button -->
+            <div class="text-center">
+                <input class="btn btn-outline-primary mb-3" type="submit" value="Submit New Order" />
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

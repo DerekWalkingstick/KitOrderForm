@@ -1,0 +1,131 @@
+{% extends "base.jinja"%}
+
+{% block body %}
+
+{% with step=2 %}
+    {% include "progress_bar.jinja" %}
+{% endwith %}
+
+<form id="step-2" class="form-step" method="post">
+
+    <!-- Title -->
+    <h2 class="font-normal">Kit Types</h2>
+    <p style="color: gray; font-style: italic">To remove an item set the quantity to 0 and click outside of the field.</p>
+
+    <!-- Kit Types and Quantities -->
+    <div id="kitTypeContainer" class="container">
+        <div class="row">
+            <div class="col-md-8" style="margin-top: 10px;">
+                <!-- Label -->
+                <label id="kitType" class="form-label">
+                    Kit Types to Order<span class="text-danger"> *</span>
+                </label>
+            </div>
+            <div class="col-md-4" style=" margin-top: 10px;">
+                <label id="quantity" class="form-label">
+                    Quantity<span class="text-danger"> *</span>
+                </label>
+            </div>
+        </div>
+        
+        {% for k,v in selection.items() %}
+            <div id="kitTypeRow{{loop.index}}" class="row">
+        
+                <!-- Kit Types to Order -->
+                <div class="col-md-8" style="margin-bottom: 10px;">
+                
+                    <!-- Selector -->
+                    <select class="form-select kitSelector" id="kit-option{{loop.index}}" name="kit-option{{loop.index}}" required>
+                        <option selected disabled value="">Choose...</option>
+                        {% for kit_type in kit_types %}
+                            <option value="{{ kit_type['sap_code'] }}" 
+                            {% if kit_type['sap_code'] == k %}
+                                selected 
+                            {% endif %}>{{ kit_type['display_name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+    
+                <!-- Quantity -->
+                <div class="col-md-4" style=" margin-bottom: 10px;">
+                    <input type="number" class="form-control" id="kit-quantity{{loop.index}}" name="kit-quantity{{loop.index}}"
+                      value="{{ v if v|int(-1) != -1 else 1 }}" onchange="removeRow(this)" min="1" required>
+                    <div class="invalid-feedback">Please provide a quantity.</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Add Button -->
+    <div class="row" style="margin-top: 15px;">
+        <div style="display:flex; width:100%; padding-left: 2rem">
+            <input id="addButton"
+                style="background-color: white; border-radius: 45px; border-style: solid; padding: 5px 10px; border-color: #23c5d4; box-shadow: 8px 5px 15px rgba(0, 0, 0, 0.1);"
+                type="button" value="+ Add" onclick="addRow({{index}})" />
+        </div>
+    </div>
+    <!-- Nav Buttons -->
+    <div class="row justify-content-end">
+        <!-- Previous -->
+        <div class="col-auto mt-3 pr-2">
+            <a href="{{url_for('views.orders')}}"><button class="button" type="button">Previous</button></a>
+        </div>
+        <!-- Next -->
+        <div class="col-auto mt-3">
+            <button class="button" type="submit">Next</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    var _index = 1;
+
+    function addRow(addIndex) {
+
+        var index = _index + addIndex;
+
+        // Get add button and the container for the new row
+        const addButton = document.getElementById("addButton");
+        const container = document.getElementById("kitTypeContainer");
+
+        // Get the old row and clone it to the new row
+        const originalRow = document.querySelector("#kitTypeRow1");
+        const newRow = originalRow.cloneNode(true);
+
+        // Update the id for the kit type
+        newRow.querySelector("#kit-option1").value = "";
+        newRow.querySelector("#kit-option1").name = "kit-option" + index;
+        newRow.querySelector("#kit-option1").id = "kit-option" + index;
+
+        // Get the new quantity textbox and update the id
+        var quantity = newRow.querySelector("#kit-quantity1");
+        quantity.name = "kit-quantity" + index;
+        quantity.value = 1;
+        quantity.id = "kit-quantity" + index;
+
+        // Add the new row to the container
+        container.appendChild(newRow);
+
+        // Remove quantity if changed to 0
+        quantity.addEventListener("change", removeRow);
+
+        // Add the new row to the container
+        container.appendChild(newRow);
+
+        // Add one to the count index
+        _index++;
+
+    };
+
+    function removeRow(element) {
+        if (element.value == "0" && element.id != "kit-quantity1") {
+            element.closest(".row").remove();
+        }
+        if (this.value === "0") {
+            this.closest(".row").remove();
+        }
+    };
+
+</script>
+
+{% endblock %}
